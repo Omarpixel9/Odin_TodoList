@@ -1,5 +1,4 @@
 // This file is for DOM Manipulation related features
-// Can be used to create
 
 // Creates and returns an element
 const buildElement = (elementType, elementId, elementClass) => {
@@ -11,10 +10,15 @@ const buildElement = (elementType, elementId, elementClass) => {
     return newElement;
 };
 
-const loadLeftSidebar = () => {
+const loadProjectsSidebar = () => {
     // Create div
-    document.body.appendChild(buildElement('div', 'sidebar'));
-    
+    const sidebarDiv = buildElement('div', 'sidebar');
+    document.body.appendChild(sidebarDiv);
+    // Create heading
+    const projectsHeading = buildElement('h1');
+    projectsHeading.textContent = 'Projects';
+    sidebarDiv.appendChild(projectsHeading);
+    // Load default project from projects module
 };
 
-export {buildElement};
+export {loadProjectsSidebar};
