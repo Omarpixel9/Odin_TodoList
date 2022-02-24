@@ -3,10 +3,8 @@
 // Creates and returns an element
 const buildElement = (elementType, elementId, elementClass) => {
     let newElement = document.createElement(elementType);
-    if (elementId)
-        newElement.id = elementId;
-    if (elementClass)
-        newElement.classList.add(elementClass);
+    if (elementId)  newElement.id = elementId;
+    if (elementClass)   newElement.classList.add(elementClass);
     return newElement;
 };
 

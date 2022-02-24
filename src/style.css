@@ -1,11 +1,15 @@
+:root {
+    --sidebar-bg: #2B2D42;
+    --sidebar-header-under: #EDF2F4;
+}
 body {
     margin: 0;
     font-family: sans-serif;
 }
 
 #sidebar {
-    width: 30vw;
-    background: blue;
+    width: max(20vw, 20vh);
+    background: var(--sidebar-bg);
     color: white;
     padding: 15px;
     height: 100vh;
@@ -13,5 +17,6 @@ body {
 
 #sidebar h1 {
     text-align: center;
-    font-size: 48px;
+    border-bottom: 2px solid var(--sidebar-header-under);
+    padding-bottom: 15px;
 }
