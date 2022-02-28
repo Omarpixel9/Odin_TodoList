@@ -1,4 +1,4 @@
-import { addProject, projectsList } from "./projects";
+import { addProject, initializeProjectsList, projectsList } from "./projects";
 // This file is for DOM Manipulation related features
 
 // Creates and returns an element
@@ -17,8 +17,6 @@ const updateProjectsSidebar = () => {
         projectHeader.textContent = project.name;
         projectsListDiv.appendChild(projectHeader);
     }
-    projectHeader.textContent = projectsList[0].name;
-    sidebarDiv.appendChild(projectHeader);
 };
 
 const loadProjectsSidebar = () => {
@@ -30,7 +28,8 @@ const loadProjectsSidebar = () => {
     projectsHeading.textContent = 'Projects';
     sidebarDiv.appendChild(projectsHeading);
     // Create default project in projects module
-    addProject('default');
+    initializeProjectsList();
+    console.log(projectsList[0]);
     // Create div for projects list
     const projectsListDiv = buildElement('div', 'projects');
     sidebarDiv.appendChild(projectsListDiv);
