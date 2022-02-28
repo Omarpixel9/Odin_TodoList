@@ -14,9 +14,16 @@ const addProject = (name, todos, isSelected) => {
     return project;
 };
 
+const selectProject = (project) => {
+    // Deselect all projects
+    projectsList.forEach(item => item.isSelected = false);
+    // Select particular project
+    project.isSelected = true;
+};
+
 // Initial setup of todo list, runs for first-time users
 const initializeProjectsList = () => {
     addProject('default', true);
 };
 
-export {addProject, initializeProjectsList, projectsList};
+export {addProject, initializeProjectsList, selectProject, projectsList};
