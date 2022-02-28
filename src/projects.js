@@ -2,8 +2,10 @@
 const projectsList = [];
 
 // A Project is composed of a name and a collection of todos
-const Project = (name, todos, isSelected) => {
-    return {name, todos, isSelected};
+const Project = (name, isSelected) => {
+    const todos = [];
+    const assignTodo = todo => todos.push(todo);
+    return {name, todos, isSelected, assignTodo};
 };
 
 const addProject = (name, todos, isSelected) => {
@@ -14,7 +16,7 @@ const addProject = (name, todos, isSelected) => {
 
 // Initial setup of todo list, runs for first-time users
 const initializeProjectsList = () => {
-    addProject('default', null, true);
+    addProject('default', true);
 };
 
 export {addProject, initializeProjectsList, projectsList};
