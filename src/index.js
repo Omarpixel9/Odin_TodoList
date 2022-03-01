@@ -1,4 +1,4 @@
 import './style.css';
-import { loadProjectsSidebar } from './dom-manip.js';
+import { initialLoadContent } from './dom-manip.js';
 
-loadProjectsSidebar();
+initialLoadContent();

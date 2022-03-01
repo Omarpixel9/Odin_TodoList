@@ -1,17 +1,64 @@
+:root {
+    --sidebar-bg: #084C61;
+    --sidebar-bg-secondary: #052C39;
+    --white-color: #FCFCFC;
+}
 body {
     margin: 0;
     font-family: sans-serif;
+    background-color: (var(--white-color));
+}
+
+#content {
+    display: flex;
+}
+
+#todosContent {
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 15px;
+}
+
+#todosContent .todo {
+    padding: 15px;
+    margin: 15px;
+    background-color: wheat;
 }
 
 #sidebar {
-    width: 30vw;
-    background: blue;
+    text-align: center;
+    width: max(20vw, 20vh);
+    background: var(--sidebar-bg);
     color: white;
     padding: 15px;
     height: 100vh;
 }
 
-#sidebar h1 {
+#sidebar #projectsTitle {
     text-align: center;
+    border-bottom: 2px solid var(--white-color);
+    padding-bottom: 15px;
     font-size: 48px;
+    font-style: italic;
+}
+
+#sidebar #projects {
+    margin-top: 50px;
+    padding: 0px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#projects .project {
+    padding: 15px;
+    background: inherit;
+    border-radius: 15px;
+    border: none;
+    width: 100%;
+    color: var(--white-color);
+    font-size: 32px;
+    font-family: inherit;
+}
+#projects .selectedProject, #projects .project:hover {
+    background: var(--sidebar-bg-secondary);
 }
