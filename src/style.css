@@ -6,8 +6,23 @@
 body {
     margin: 0;
     font-family: sans-serif;
-    color: var(--white-color); 
     background-color: (var(--white-color));
+}
+
+#content {
+    display: flex;
+}
+
+#todosContent {
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 15px;
+}
+
+#todosContent .todo {
+    padding: 15px;
+    margin: 15px;
+    background-color: wheat;
 }
 
 #sidebar {

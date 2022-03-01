@@ -6,8 +6,11 @@ const Todo = (title, description, dueDate, priority) => {
 };
 
 const addTodoToProject = (todo, projectName) => {
-    let selectedProject = projectsList.find(project => project.isSelected == true);
-    if (!projectName)   selectedProject.assignTodo(todo);
+    let selectedProject;
+    if (!projectName)   selectedProject = projectsList.find(project => project.isSelected == true);
+    else selectedProject = projectsList.find(project => project.name == projectName);
+    console.log(selectedProject);
+    selectedProject.assignTodo(todo);
     console.log(projectsList);
 };
 
