@@ -16,13 +16,35 @@ body {
 #todosContent {
     width: 100%;
     background-color: whitesmoke;
-    padding: 15px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 #todosContent .todo {
-    padding: 15px;
-    margin: 15px;
-    background-color: wheat;
+    padding: 0px 15px;
+    background-color: #d1cfcf;
+    border-radius: 15px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 24px;
+    cursor:pointer;
+}
+
+#todosContent .todo input {
+    width: 25px;
+    height: 25px;
+}
+
+#todosContent .todo p {
+    width: 100%;
+}
+
+#todosContent button {
+    font-size: 24px;
 }
 
 #sidebar {
@@ -58,6 +80,7 @@ body {
     color: var(--white-color);
     font-size: 32px;
     font-family: inherit;
+    cursor:pointer;
 }
 #projects .selectedProject, #projects .project:hover {
     background: var(--sidebar-bg-secondary);

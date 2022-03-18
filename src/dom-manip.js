@@ -41,11 +41,18 @@ const updateTodosDisplay = () => {
     // Add todos of selected project
     for (const todo of selectedProject.todos) {
         const todoDiv = buildElement('div', null, 'todo');
+        const todoCheck = buildElement('input');
+        todoCheck.type = 'checkbox';
         const todoTitle = buildElement('p');
         todoTitle.textContent = todo.title;
+        todoDiv.appendChild(todoCheck);
         todoDiv.appendChild(todoTitle);
         todosDisplay.appendChild(todoDiv);
     }
+    // New Todo button
+    const newTodoBtn = buildElement('button', 'newTodoBtn');
+    newTodoBtn.textContent = '+ New Todo';
+    todosDisplay.appendChild(newTodoBtn);
     
 };
 
