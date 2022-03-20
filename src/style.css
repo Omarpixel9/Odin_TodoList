@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Roboto&display=swap');
 :root {
     --sidebar-bg: #084C61;
     --sidebar-bg-secondary: #052C39;
@@ -5,7 +6,7 @@
 }
 body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Lato', sans-serif;
     background-color: (var(--white-color));
 }
 
@@ -24,14 +25,14 @@ body {
 
 #todosContent .todo {
     padding: 0px 15px;
-    background-color: #d1cfcf;
+    background-color: #4B8F8C;
     border-radius: 15px;
-    border: 2px solid black;
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 24px;
     cursor:pointer;
+    color: white;
 }
 
 #todosContent .todo input {
@@ -45,6 +46,16 @@ body {
 
 #todosContent button {
     font-size: 24px;
+    border: none;
+    background-color: #324a55;
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: left;
+}
+#todosContent button:hover {
+    background-color: #11191d;
+    cursor: pointer;
 }
 
 #sidebar {
