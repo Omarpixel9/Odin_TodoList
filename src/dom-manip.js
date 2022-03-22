@@ -52,7 +52,21 @@ const updateTodosDisplay = () => {
     // New Todo button
     const newTodoBtn = buildElement('button', 'newTodoBtn');
     newTodoBtn.textContent = '+ New Todo';
+    newTodoBtn.addEventListener('click', loadTodoDetailDisplay);
     todosDisplay.appendChild(newTodoBtn);
+    
+};
+
+const loadTodoDetailDisplay = () => {
+    const contentDiv = document.getElementById('content');
+    document.body.classList.add('notScrollable');
+    // Create container for todo content
+    const todoDetailDiv = buildElement('div', 'todoDetails');
+    // Insert sample h1 into todoDetails
+    const todoName = buildElement('h1');
+    todoName.textContent = 'Todo Name';
+    todoDetailDiv.appendChild(todoName);
+    contentDiv.appendChild(todoDetailDiv);
     
 };
 

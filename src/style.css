@@ -58,6 +58,22 @@ body {
     cursor: pointer;
 }
 
+#todoDetails {
+    position: fixed;
+    background-color: white;
+    top: 10%;
+    left: 30%;
+    width: 40%;
+    height: 60%;
+    padding: 15px 30px;
+    box-shadow: 0px 0px 15px gray;
+    border-radius: 15px;
+}
+
+.notScrollable {
+    overflow-y: hidden;
+}
+
 #sidebar {
     text-align: center;
     width: max(20vw, 20vh);
