@@ -1,5 +1,6 @@
 import { addProject, initializeProjectsList, projectsList, selectProject } from "./projects";
 import { addTodoToProject, Todo } from "./todo";
+import { SweetAlert } from "sweetalert";
 // This file is for DOM Manipulation related features
 
 // Creates and returns an element
@@ -61,13 +62,15 @@ const loadTodoDetailDisplay = (todo) => {
     const contentDiv = document.getElementById('content');
     document.body.classList.add('notScrollable');
     const todoDetailBackground = buildElement('div', 'todoDetailsBackground');
+    const confirmMessageButtons = ['No', true];
     // Close Todo Detail Display
     const closeDisplay = () => {
-        if(confirm('Are you sure?')) {
-            contentDiv.removeChild(todoDetailDiv);
-            contentDiv.removeChild(todoDetailBackground);
-        }
-        
+        swal('Are you sure you want to close this dialog?', "Any changes will not be saved.", "warning", {buttons: confirmMessageButtons}).then((value) => {
+            if (value) {
+                contentDiv.removeChild(todoDetailDiv);
+                contentDiv.removeChild(todoDetailBackground);
+            }
+        });
     };
     
     todoDetailBackground.addEventListener('click', closeDisplay);
