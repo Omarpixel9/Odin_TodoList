@@ -57,17 +57,39 @@ const updateTodosDisplay = () => {
     
 };
 
-const loadTodoDetailDisplay = () => {
+const loadTodoDetailDisplay = (todo) => {
     const contentDiv = document.getElementById('content');
     document.body.classList.add('notScrollable');
+    const todoDetailBackground = buildElement('div', 'todoDetailsBackground');
+    // Close Todo Detail Display
+    const closeDisplay = () => {
+        if(confirm('Are you sure?')) {
+            contentDiv.removeChild(todoDetailDiv);
+            contentDiv.removeChild(todoDetailBackground);
+        }
+        
+    };
+    
+    todoDetailBackground.addEventListener('click', closeDisplay);
     // Create container for todo content
     const todoDetailDiv = buildElement('div', 'todoDetails');
-    // Insert sample h1 into todoDetails
-    const todoName = buildElement('h1');
+
+    // Title of Display
+    const titleDisplay = buildElement('h1');
+    titleDisplay.textContent = 'Create a New Todo';
+
+    // Form Details
+    const todoName = buildElement('label');
     todoName.textContent = 'Todo Name';
+    const todoTextfield = buildElement('input');
+    todoTextfield.type = 'text';
+
+    todoDetailDiv.appendChild(titleDisplay);
     todoDetailDiv.appendChild(todoName);
-    contentDiv.appendChild(todoDetailDiv);
+    todoDetailDiv.appendChild(todoTextfield);
     
+    contentDiv.appendChild(todoDetailBackground);
+    contentDiv.appendChild(todoDetailDiv);
 };
 
 const loadTodosDisplay = () => {
