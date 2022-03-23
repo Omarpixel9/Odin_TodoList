@@ -62,7 +62,7 @@ const loadTodoDetailDisplay = (todo) => {
     const contentDiv = document.getElementById('content');
     document.body.classList.add('notScrollable');
     const todoDetailBackground = buildElement('div', 'todoDetailsBackground');
-    const confirmMessageButtons = ['No', true];
+    const confirmMessageButtons = ['No', 'Yes'];
     // Close Todo Detail Display
     const closeDisplay = () => {
         swal('Are you sure you want to close this dialog?', "Any changes will not be saved.", "warning", {buttons: confirmMessageButtons}).then((value) => {
