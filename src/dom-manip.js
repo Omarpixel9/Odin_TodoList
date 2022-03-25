@@ -82,14 +82,29 @@ const loadTodoDetailDisplay = (todo) => {
     titleDisplay.textContent = 'Create a New Todo';
 
     // Form Details
+    const todoForm = buildElement('form');
+    // Todo Name
     const todoName = buildElement('label');
     todoName.textContent = 'Todo Name';
     const todoTextfield = buildElement('input');
     todoTextfield.type = 'text';
+    // Todo Desc
+    const todoDesc = buildElement('label');
+    todoDesc.textContent = 'Todo Description';
+    const todoDescTF = buildElement('input');
+    todoDescTF.type = 'text';
+    // Add Todo Button
+    const addTodoBtn = buildElement('button');
+    addTodoBtn.textContent = 'Add Todo';
+    addTodoBtn.type = 'button';
 
-    todoDetailDiv.appendChild(titleDisplay);
-    todoDetailDiv.appendChild(todoName);
-    todoDetailDiv.appendChild(todoTextfield);
+    todoForm.appendChild(titleDisplay);
+    todoForm.appendChild(todoName);
+    todoForm.appendChild(todoTextfield);
+    todoForm.appendChild(todoDesc);
+    todoForm.appendChild(todoDescTF);
+    todoDetailDiv.appendChild(todoForm);
+    todoDetailDiv.appendChild(addTodoBtn);
     
     contentDiv.appendChild(todoDetailBackground);
     contentDiv.appendChild(todoDetailDiv);

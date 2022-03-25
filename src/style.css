@@ -3,10 +3,11 @@
     --sidebar-bg: #084C61;
     --sidebar-bg-secondary: #052C39;
     --white-color: #FCFCFC;
+    --main-font: 'Lato', sans-serif;
 }
 body {
     margin: 0;
-    font-family: 'Lato', sans-serif;
+    font-family: var(--main-font);
     background-color: (var(--white-color));
 }
 
@@ -67,6 +68,38 @@ body {
     height: 60%;
     padding: 15px 30px;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#todoDetails form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#todoDetails label {
+    font-size: 24px;
+}
+
+#todoDetails input[type='text'] {
+    font-size: 18px;
+    padding: 15px;
+    font-family: inherit;
+}
+
+#todoDetails button {
+    font-size: 24px;
+    border: none;
+    padding: 15px;
+    background-color: var(--sidebar-bg);
+    color: var(--white-color);
+    margin: 15px;
+}
+
+#todoDetails button:hover {
+    background-color: var(--sidebar-bg-secondary);
 }
 
 #todoDetailsBackground {
@@ -78,6 +111,23 @@ body {
 
 .notScrollable {
     overflow-y: hidden;
+}
+
+.swal-title, .swal-text, .swal-button {
+    font-family: var(--main-font);
+    color: black;
+}
+
+.swal-button {
+    font-weight: 800;
+}
+
+.swal-button--confirm {
+    color: white;
+}
+
+.swal-modal {
+    background-color: var(--white-color);
 }
 
 #sidebar {
