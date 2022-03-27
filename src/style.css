@@ -65,12 +65,12 @@ body {
     top: 10%;
     left: 30%;
     width: 40%;
-    height: 60%;
+    height: 70%;
     padding: 15px 30px;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 #todoDetails form {
@@ -85,20 +85,27 @@ body {
 }
 
 #todoDetails input[type='text'], #todoDetails input[type='datetime-local'], select {
-    font-size: 18px;
+    font-size: 24px;
     padding: 15px;
     font-family: inherit;
+    border-radius: 15px;
+    border: 2px solid black;
 }
 
 #todoDetails button {
     font-size: 24px;
     border: none;
-    padding: 15px;
     background-color: var(--sidebar-bg);
-    color: var(--white-color);
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
     margin: 15px;
+    font-weight: 800;
 }
-
+.required:after {
+    content:" *";
+    color: red;
+}
 #todoDetails button:hover {
     background-color: var(--sidebar-bg-secondary);
 }

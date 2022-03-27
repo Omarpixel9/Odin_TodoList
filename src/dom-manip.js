@@ -1,13 +1,23 @@
-import { addProject, initializeProjectsList, projectsList, selectProject } from "./projects";
-import { addTodoToProject, Todo } from "./todo";
-import { SweetAlert } from "sweetalert";
+import {
+    addProject,
+    initializeProjectsList,
+    projectsList,
+    selectProject
+} from "./projects";
+import {
+    addTodoToProject,
+    Todo
+} from "./todo";
+import swal, {
+    SweetAlert
+} from "sweetalert";
 // This file is for DOM Manipulation related features
 
 // Creates and returns an element
 const buildElement = (elementType, elementId, elementClass) => {
     let newElement = document.createElement(elementType);
-    if (elementId)  newElement.id = elementId;
-    if (elementClass)   newElement.classList.add(elementClass);
+    if (elementId) newElement.id = elementId;
+    if (elementClass) newElement.classList.add(elementClass);
     return newElement;
 };
 
@@ -55,7 +65,7 @@ const updateTodosDisplay = () => {
     newTodoBtn.textContent = '+ New Todo';
     newTodoBtn.addEventListener('click', loadTodoDetailDisplay);
     todosDisplay.appendChild(newTodoBtn);
-    
+
 };
 
 const loadTodoDetailDisplay = (todo) => {
@@ -69,7 +79,9 @@ const loadTodoDetailDisplay = (todo) => {
     }
     // Close Todo Detail Display
     const closeDisplayDialog = () => {
-        swal('Are you sure you want to close this dialog?', "Any changes will not be saved.", "warning", {buttons: confirmMessageButtons}).then((value) => {
+        swal('Are you sure you want to close this dialog?', "Any changes will not be saved.", "warning", {
+            buttons: confirmMessageButtons
+        }).then((value) => {
             if (value) {
                 closeDisplay();
             }
@@ -115,8 +127,10 @@ const loadTodoDetailDisplay = (todo) => {
         const labelElement = buildElement('label');
         labelElement.textContent = myField.label;
         labelElement.name = field + 'Label';
+        labelElement.for = field + 'Input';
         const inputElement = buildElement(myField.element);
         inputElement.name = field + 'Input';
+        if (field !== 'todoDesc')   labelElement.classList.add('required');
 
         if (myField.inputType) inputElement.type = formModel[field].inputType;
         if (field === 'todoAssignedProject') {
@@ -137,22 +151,31 @@ const loadTodoDetailDisplay = (todo) => {
     addTodoBtn.addEventListener('click', () => {
         let inputs = [];
         let assignedProject;
+        let isFormComplete = true;
         for (const input of todoForm.children) {
             if (input.name === 'todoAssignedProjectInput')
                 assignedProject = input.options[input.selectedIndex].textContent;
-            else if (input.tagName === 'INPUT')
-                inputs.push(input.value);
+            else if (input.tagName === 'INPUT') {
+                if (!input.value && input.name !== 'todoDescInput') {
+                    isFormComplete = false;
+                    break;
+                } else inputs.push(input.value);
+            }
         }
-        console.log(inputs);
-        addTodoToProject(Todo(inputs[0], inputs[1], inputs[2]), assignedProject);
-        closeDisplay();
-        updateTodosDisplay();
+        if (isFormComplete) {
+            addTodoToProject(Todo(inputs[0], inputs[1], inputs[2]), assignedProject);
+            closeDisplay();
+            updateTodosDisplay();
+        } else {
+            swal('Incomplete Form', 'Please fill out all of the required (*) fields.', 'error');
+        }
+
     });
 
     todoDetailDiv.appendChild(titleDisplay);
     todoDetailDiv.appendChild(todoForm);
     todoDetailDiv.appendChild(addTodoBtn);
-    
+
     contentDiv.appendChild(todoDetailBackground);
     contentDiv.appendChild(todoDetailDiv);
 };
@@ -197,4 +220,6 @@ const initialLoadContent = () => {
     loadTodosDisplay();
 };
 
-export {initialLoadContent};
+export {
+    initialLoadContent
+};
