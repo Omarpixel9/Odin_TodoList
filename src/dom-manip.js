@@ -81,28 +81,41 @@ const loadTodoDetailDisplay = (todo) => {
     const titleDisplay = buildElement('h1');
     titleDisplay.textContent = 'Create a New Todo';
 
-    // Form Details
+    // Form Template Model
+    const formModel = {
+        todoName: {
+            label: 'Todo Name',
+            inputType: 'text',
+        },
+        todoDesc: {
+            label: 'Todo Description',
+            inputType: 'text',
+        },
+        todoDueDate: {
+            label: 'Todo Due Date & Time',
+            inputType: 'datetime-local',
+        },
+    };
+
+    // Generate Form in DOM
     const todoForm = buildElement('form');
-    // Todo Name
-    const todoName = buildElement('label');
-    todoName.textContent = 'Todo Name';
-    const todoTextfield = buildElement('input');
-    todoTextfield.type = 'text';
-    // Todo Desc
-    const todoDesc = buildElement('label');
-    todoDesc.textContent = 'Todo Description';
-    const todoDescTF = buildElement('input');
-    todoDescTF.type = 'text';
+    // Form Details
+    for (const field in formModel) {
+        console.log(formModel[field].label);
+        const labelElement = buildElement('label');
+        labelElement.textContent = formModel[field].label;
+        const inputElement = buildElement('input');
+        inputElement.type = formModel[field].inputType;
+        todoForm.appendChild(labelElement);
+        todoForm.appendChild(inputElement);
+    }
+    
     // Add Todo Button
     const addTodoBtn = buildElement('button');
     addTodoBtn.textContent = 'Add Todo';
     addTodoBtn.type = 'button';
 
-    todoForm.appendChild(titleDisplay);
-    todoForm.appendChild(todoName);
-    todoForm.appendChild(todoTextfield);
-    todoForm.appendChild(todoDesc);
-    todoForm.appendChild(todoDescTF);
+    todoDetailDiv.appendChild(titleDisplay);
     todoDetailDiv.appendChild(todoForm);
     todoDetailDiv.appendChild(addTodoBtn);
     

@@ -80,10 +80,11 @@ body {
 }
 
 #todoDetails label {
-    font-size: 24px;
+    font-size: 18px;
+    color: rgb(77, 77, 77);
 }
 
-#todoDetails input[type='text'] {
+#todoDetails input[type='text'], #todoDetails input[type='datetime-local'] {
     font-size: 18px;
     padding: 15px;
     font-family: inherit;
@@ -128,6 +129,7 @@ body {
 
 .swal-modal {
     background-color: var(--white-color);
+    border-radius: 15px;
 }
 
 #sidebar {
