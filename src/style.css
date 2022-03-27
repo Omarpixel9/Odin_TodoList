@@ -84,7 +84,7 @@ body {
     color: rgb(77, 77, 77);
 }
 
-#todoDetails input[type='text'], #todoDetails input[type='datetime-local'] {
+#todoDetails input[type='text'], #todoDetails input[type='datetime-local'], select {
     font-size: 18px;
     padding: 15px;
     font-family: inherit;

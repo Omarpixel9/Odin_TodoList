@@ -63,17 +63,19 @@ const loadTodoDetailDisplay = (todo) => {
     document.body.classList.add('notScrollable');
     const todoDetailBackground = buildElement('div', 'todoDetailsBackground');
     const confirmMessageButtons = ['No', 'Yes'];
-    // Close Todo Detail Display
     const closeDisplay = () => {
+        contentDiv.removeChild(todoDetailDiv);
+        contentDiv.removeChild(todoDetailBackground);
+    }
+    // Close Todo Detail Display
+    const closeDisplayDialog = () => {
         swal('Are you sure you want to close this dialog?', "Any changes will not be saved.", "warning", {buttons: confirmMessageButtons}).then((value) => {
             if (value) {
-                contentDiv.removeChild(todoDetailDiv);
-                contentDiv.removeChild(todoDetailBackground);
+                closeDisplay();
             }
         });
     };
-    
-    todoDetailBackground.addEventListener('click', closeDisplay);
+    todoDetailBackground.addEventListener('click', closeDisplayDialog);
     // Create container for todo content
     const todoDetailDiv = buildElement('div', 'todoDetails');
 
@@ -85,35 +87,67 @@ const loadTodoDetailDisplay = (todo) => {
     const formModel = {
         todoName: {
             label: 'Todo Name',
+            element: 'input',
             inputType: 'text',
         },
         todoDesc: {
             label: 'Todo Description',
+            element: 'input',
             inputType: 'text',
         },
         todoDueDate: {
             label: 'Todo Due Date & Time',
+            element: 'input',
             inputType: 'datetime-local',
         },
+        todoAssignedProject: {
+            label: 'Assigned Project',
+            element: 'select',
+        }
     };
 
     // Generate Form in DOM
     const todoForm = buildElement('form');
     // Form Details
     for (const field in formModel) {
-        console.log(formModel[field].label);
+        const myField = formModel[field];
+        console.log(myField.label);
         const labelElement = buildElement('label');
-        labelElement.textContent = formModel[field].label;
-        const inputElement = buildElement('input');
-        inputElement.type = formModel[field].inputType;
+        labelElement.textContent = myField.label;
+        labelElement.name = field + 'Label';
+        const inputElement = buildElement(myField.element);
+        inputElement.name = field + 'Input';
+
+        if (myField.inputType) inputElement.type = formModel[field].inputType;
+        if (field === 'todoAssignedProject') {
+            for (const project of projectsList) {
+                const option = buildElement('option');
+                option.textContent = project.name;
+                inputElement.appendChild(option);
+            }
+        }
         todoForm.appendChild(labelElement);
         todoForm.appendChild(inputElement);
     }
-    
+
     // Add Todo Button
     const addTodoBtn = buildElement('button');
     addTodoBtn.textContent = 'Add Todo';
     addTodoBtn.type = 'button';
+    addTodoBtn.addEventListener('click', () => {
+        let inputs = [];
+        let assignedProject;
+        for (const input of todoForm.children) {
+            if (input.name === 'todoAssignedProjectInput')
+                assignedProject = input.options[input.selectedIndex].textContent;
+            else if (input.tagName === 'INPUT')
+                inputs.push(input.value);
+        }
+        console.log(inputs);
+        addTodoToProject(Todo(inputs[0], inputs[1], inputs[2]), assignedProject);
+        closeDisplay();
+        updateTodosDisplay();
+    });
 
     todoDetailDiv.appendChild(titleDisplay);
     todoDetailDiv.appendChild(todoForm);
