@@ -50,7 +50,7 @@ const updateTodosDisplay = () => {
     // Remove current todos
     Array.from(todosDisplay.children).forEach(child => todosDisplay.removeChild(child));
     // Add todos of selected project
-    for (const todo of selectedProject.todos) {
+    for (const [index, todo] of selectedProject.todos.entries()) {
         const todoDiv = buildElement('div', null, 'todo');
         const todoCheck = buildElement('input');
         todoCheck.type = 'checkbox';
@@ -58,26 +58,29 @@ const updateTodosDisplay = () => {
         todoTitle.textContent = todo.title;
         todoDiv.appendChild(todoCheck);
         todoDiv.appendChild(todoTitle);
+        todoCheck.addEventListener('click', () => console.log('hi'));
+        todoTitle.addEventListener('click', () => loadTodoDetailDisplay(todo, index));
         todosDisplay.appendChild(todoDiv);
     }
     // New Todo button
     const newTodoBtn = buildElement('button', 'newTodoBtn');
     newTodoBtn.textContent = '+ New Todo';
-    newTodoBtn.addEventListener('click', loadTodoDetailDisplay);
+    newTodoBtn.addEventListener('click', () => loadTodoDetailDisplay());
     todosDisplay.appendChild(newTodoBtn);
 
 };
 
-const loadTodoDetailDisplay = (todo) => {
+const loadTodoDetailDisplay = (todo, todoIndex) => {
+    const selectedProject = projectsList.find(project => project.isSelected);
     const contentDiv = document.getElementById('content');
     document.body.classList.add('notScrollable');
     const todoDetailBackground = buildElement('div', 'todoDetailsBackground');
     const confirmMessageButtons = ['No', 'Yes'];
+    // Close Todo Detail Display
     const closeDisplay = () => {
         contentDiv.removeChild(todoDetailDiv);
         contentDiv.removeChild(todoDetailBackground);
     }
-    // Close Todo Detail Display
     const closeDisplayDialog = () => {
         swal('Are you sure you want to close this dialog?', "Any changes will not be saved.", "warning", {
             buttons: confirmMessageButtons
@@ -87,13 +90,17 @@ const loadTodoDetailDisplay = (todo) => {
             }
         });
     };
+
     todoDetailBackground.addEventListener('click', closeDisplayDialog);
     // Create container for todo content
     const todoDetailDiv = buildElement('div', 'todoDetails');
 
     // Title of Display
     const titleDisplay = buildElement('h1');
-    titleDisplay.textContent = 'Create a New Todo';
+    console.log(todo);
+    if (!todo) titleDisplay.textContent = 'Create a New Todo';
+    else titleDisplay.textContent
+    titleDisplay.textContent = !todo ? 'Create a New Todo' : `Viewing Todo: ${todo.title}`;
 
     // Form Template Model
     const formModel = {
@@ -130,7 +137,7 @@ const loadTodoDetailDisplay = (todo) => {
         labelElement.for = field + 'Input';
         const inputElement = buildElement(myField.element);
         inputElement.name = field + 'Input';
-        if (field !== 'todoDesc')   labelElement.classList.add('required');
+        if (field !== 'todoDesc') labelElement.classList.add('required');
 
         if (myField.inputType) inputElement.type = formModel[field].inputType;
         if (field === 'todoAssignedProject') {
@@ -139,6 +146,13 @@ const loadTodoDetailDisplay = (todo) => {
                 option.textContent = project.name;
                 inputElement.appendChild(option);
             }
+        }
+        if (todo) {
+            inputElement.disabled = true;
+            if (field === 'todoName') inputElement.value = todo.title;
+            if (field === 'todoDesc') inputElement.value = todo.description;
+            if (field === 'todoDueDate') inputElement.value = todo.dueDate;
+            if (field === 'todoAssignedProject') inputElement.value = selectedProject.name;
         }
         todoForm.appendChild(labelElement);
         todoForm.appendChild(inputElement);
@@ -174,7 +188,26 @@ const loadTodoDetailDisplay = (todo) => {
 
     todoDetailDiv.appendChild(titleDisplay);
     todoDetailDiv.appendChild(todoForm);
-    todoDetailDiv.appendChild(addTodoBtn);
+    if (!todo) todoDetailDiv.appendChild(addTodoBtn);
+    else {
+        const deleteTodoBtn = buildElement('button');
+        deleteTodoBtn.textContent = 'Delete Todo';
+        deleteTodoBtn.classList.add('deleteBtn');
+        deleteTodoBtn.type = 'button';
+        deleteTodoBtn.addEventListener('click', () => {
+            swal(`Are you sure you want to delete '${todo.title}'?`, '', "warning", {
+                buttons: confirmMessageButtons
+            }).then((value) => {
+                if (value) {
+                    console.log(todoIndex);
+                    selectedProject.removeTodo(todoIndex);
+                    closeDisplay();
+                    updateTodosDisplay();
+                }
+            });
+        });
+        todoDetailDiv.appendChild(deleteTodoBtn);
+    }
 
     contentDiv.appendChild(todoDetailBackground);
     contentDiv.appendChild(todoDetailDiv);

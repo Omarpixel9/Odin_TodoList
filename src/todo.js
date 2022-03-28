@@ -12,4 +12,10 @@ const addTodoToProject = (todo, projectName) => {
     selectedProject.assignTodo(todo);
 };
 
+const deleteTodoFromProject = (todo, projectName) => {
+    let selectedProject;
+    if (!projectName)   selectedProject = projectsList.find(project => project.isSelected == true);
+    else selectedProject = projectsList.find(project => project.name == projectName);
+}
+
 export {addTodoToProject, Todo};

@@ -32,7 +32,6 @@ body {
     align-items: center;
     gap: 5px;
     font-size: 24px;
-    cursor:pointer;
     color: white;
 }
 
@@ -43,6 +42,9 @@ body {
 
 #todosContent .todo p {
     width: 100%;
+    cursor:pointer;
+    margin: 0;
+    padding: 20px 0;
 }
 
 #todosContent button {
@@ -101,6 +103,13 @@ body {
     padding: 15px;
     margin: 15px;
     font-weight: 800;
+}
+
+#todoDetails .deleteBtn {
+    background-color: rgb(172, 55, 55);
+}
+#todoDetails .deleteBtn:hover {
+    background-color: rgb(129, 30, 30);
 }
 .required:after {
     content:" *";
