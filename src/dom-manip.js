@@ -90,6 +90,93 @@ const loadTodoDetailDisplay = (todo, todoIndex) => {
             }
         });
     };
+    const enterViewMode = () => {
+        // Remove other buttons and add edit and remove
+        Array.from(todoDetailDiv.getElementsByTagName('button')).forEach(button => button.remove());
+        // Add edit todo button
+        const editTodoBtn = buildElement('button');
+        editTodoBtn.textContent = 'Edit Todo';
+        editTodoBtn.classList.add('editBtn');
+        editTodoBtn.type = 'button';
+        editTodoBtn.addEventListener('click', enterEditMode);
+
+        todoDetailDiv.appendChild(editTodoBtn);
+
+        // Add delete todo button
+        const deleteTodoBtn = buildElement('button');
+        deleteTodoBtn.textContent = 'Delete Todo';
+        deleteTodoBtn.classList.add('deleteBtn');
+        deleteTodoBtn.type = 'button';
+        deleteTodoBtn.addEventListener('click', () => {
+            swal(`Are you sure you want to delete '${todo.title}'?`, '', "warning", {
+                buttons: confirmMessageButtons
+            }).then((value) => {
+                if (value) {
+                    console.log(todoIndex);
+                    selectedProject.removeTodo(todoIndex);
+                    closeDisplay();
+                    updateTodosDisplay();
+                }
+            });
+        });
+        todoDetailDiv.appendChild(deleteTodoBtn);
+
+        titleDisplay.textContent = `Viewing Todo: ${todo.title}`;
+        const inputFields = Array.from(todoForm.getElementsByTagName('input'));
+        inputFields.push(todoForm.getElementsByTagName('select')[0]); // For Date dropdown
+        inputFields.forEach((inputElement, index) => {
+            inputElement.disabled = true;
+            if (index === 0) inputElement.value = todo.title;
+            else if (index === 1) inputElement.value = todo.description;
+            else if (index === 2) inputElement.value = todo.dueDate;
+            else if (index === 3) inputElement.value = selectedProject.name;
+        });
+
+    };
+    const enterEditMode = () => {
+        titleDisplay.textContent = `Editing Todo: ${todo.title}`;
+        // Clear previous buttons
+        document.getElementsByClassName('editBtn')[0].remove()
+        document.getElementsByClassName('deleteBtn')[0].remove()
+        // Enable form input fields
+        const inputFields = Array.from(todoDetailDiv.getElementsByTagName('input'));
+        inputFields.push(todoDetailDiv.getElementsByTagName('select')[0]); // For Date dropdown
+        inputFields.forEach(input => input.disabled = false);
+        // Add Confirm Changes Button
+        const confirmChangesBtn = buildElement('button');
+        confirmChangesBtn.textContent = 'Confirm Changes';
+        confirmChangesBtn.classList.add('confirmBtn');
+        confirmChangesBtn.type = 'button';
+        confirmChangesBtn.addEventListener('click', () => {
+            // Save changes in specified Todo
+            const newSelectedProjectName = inputFields[inputFields.length - 1].value;
+            const newTodo = Todo(
+                inputFields[0].value,
+                inputFields[1].value,
+                inputFields[2].value,
+                inputFields[0].value,
+            );
+            selectedProject.removeTodo(todoIndex);
+            if (newSelectedProjectName === selectedProject.name) {
+                selectedProject.replaceTodoAtIndex(newTodo, todoIndex);
+                console.log(selectedProject.todos);
+                
+            } else {
+                const newSelectedProject = projectsList.find(project => project.name === newSelectedProjectName);
+                newSelectedProject.assignTodo(newTodo);
+            }
+            closeDisplay();
+            updateTodosDisplay();
+        });
+        todoDetailDiv.appendChild(confirmChangesBtn);
+        // Add Revert Changes Button
+        const revertChangesBtn = buildElement('button');
+        revertChangesBtn.textContent = 'Revert Changes';
+        revertChangesBtn.classList.add('revertBtn');
+        revertChangesBtn.type = 'button';
+        revertChangesBtn.addEventListener('click', enterViewMode);
+        todoDetailDiv.appendChild(revertChangesBtn);
+    };
 
     todoDetailBackground.addEventListener('click', closeDisplayDialog);
     // Create container for todo content
@@ -97,9 +184,6 @@ const loadTodoDetailDisplay = (todo, todoIndex) => {
 
     // Title of Display
     const titleDisplay = buildElement('h1');
-    console.log(todo);
-    if (!todo) titleDisplay.textContent = 'Create a New Todo';
-    else titleDisplay.textContent
     titleDisplay.textContent = !todo ? 'Create a New Todo' : `Viewing Todo: ${todo.title}`;
 
     // Form Template Model
@@ -147,13 +231,6 @@ const loadTodoDetailDisplay = (todo, todoIndex) => {
                 inputElement.appendChild(option);
             }
         }
-        if (todo) {
-            inputElement.disabled = true;
-            if (field === 'todoName') inputElement.value = todo.title;
-            if (field === 'todoDesc') inputElement.value = todo.description;
-            if (field === 'todoDueDate') inputElement.value = todo.dueDate;
-            if (field === 'todoAssignedProject') inputElement.value = selectedProject.name;
-        }
         todoForm.appendChild(labelElement);
         todoForm.appendChild(inputElement);
     }
@@ -185,28 +262,15 @@ const loadTodoDetailDisplay = (todo, todoIndex) => {
         }
 
     });
+    
 
     todoDetailDiv.appendChild(titleDisplay);
     todoDetailDiv.appendChild(todoForm);
-    if (!todo) todoDetailDiv.appendChild(addTodoBtn);
-    else {
-        const deleteTodoBtn = buildElement('button');
-        deleteTodoBtn.textContent = 'Delete Todo';
-        deleteTodoBtn.classList.add('deleteBtn');
-        deleteTodoBtn.type = 'button';
-        deleteTodoBtn.addEventListener('click', () => {
-            swal(`Are you sure you want to delete '${todo.title}'?`, '', "warning", {
-                buttons: confirmMessageButtons
-            }).then((value) => {
-                if (value) {
-                    console.log(todoIndex);
-                    selectedProject.removeTodo(todoIndex);
-                    closeDisplay();
-                    updateTodosDisplay();
-                }
-            });
-        });
-        todoDetailDiv.appendChild(deleteTodoBtn);
+
+    if (todo) {
+        enterViewMode();
+    } else {
+        todoDetailDiv.appendChild(addTodoBtn);
     }
 
     contentDiv.appendChild(todoDetailBackground);

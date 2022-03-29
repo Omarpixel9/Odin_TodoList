@@ -67,7 +67,7 @@ body {
     top: 10%;
     left: 30%;
     width: 40%;
-    height: 70%;
+    height: 80%;
     padding: 15px 30px;
     border-radius: 15px;
     display: flex;
@@ -79,6 +79,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 15px;
 }
 
 #todoDetails label {
@@ -101,16 +102,28 @@ body {
     color: white;
     border-radius: 15px;
     padding: 15px;
-    margin: 15px;
+    margin-top: 15px;
     font-weight: 800;
 }
-
 #todoDetails .deleteBtn {
     background-color: rgb(172, 55, 55);
 }
 #todoDetails .deleteBtn:hover {
     background-color: rgb(129, 30, 30);
 }
+#todoDetails .confirmBtn {
+    background-color: rgb(56, 114, 64);
+}
+#todoDetails .confirmBtn:hover {
+    background-color: rgb(35, 95, 44);
+}
+#todoDetails .revertBtn {
+    background-color: rgb(99, 99, 99);
+}
+#todoDetails .revertBtn:hover {
+    background-color: rgb(75, 74, 74);
+}
+
 .required:after {
     content:" *";
     color: red;
