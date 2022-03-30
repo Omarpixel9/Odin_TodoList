@@ -3,10 +3,11 @@
     --sidebar-bg: #084C61;
     --sidebar-bg-secondary: #052C39;
     --white-color: #FCFCFC;
+    --main-font: 'Lato', sans-serif;
 }
 body {
     margin: 0;
-    font-family: 'Lato', sans-serif;
+    font-family: var(--main-font);
     background-color: (var(--white-color));
 }
 
@@ -31,7 +32,6 @@ body {
     align-items: center;
     gap: 5px;
     font-size: 24px;
-    cursor:pointer;
     color: white;
 }
 
@@ -42,6 +42,9 @@ body {
 
 #todosContent .todo p {
     width: 100%;
+    cursor:pointer;
+    margin: 0;
+    padding: 20px 0;
 }
 
 #todosContent button {
@@ -56,6 +59,106 @@ body {
 #todosContent button:hover {
     background-color: #11191d;
     cursor: pointer;
+}
+
+#todoDetails {
+    position: fixed;
+    background-color: white;
+    top: 10%;
+    left: 30%;
+    width: 40%;
+    height: 80%;
+    padding: 15px 30px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#todoDetails form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#todoDetails label {
+    font-size: 18px;
+    color: rgb(77, 77, 77);
+}
+
+#todoDetails input[type='text'], #todoDetails input[type='datetime-local'], select {
+    font-size: 24px;
+    padding: 15px;
+    font-family: inherit;
+    border-radius: 15px;
+    border: 2px solid black;
+}
+
+#todoDetails button {
+    font-size: 24px;
+    border: none;
+    background-color: var(--sidebar-bg);
+    color: white;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+    font-weight: 800;
+}
+#todoDetails .deleteBtn {
+    background-color: rgb(172, 55, 55);
+}
+#todoDetails .deleteBtn:hover {
+    background-color: rgb(129, 30, 30);
+}
+#todoDetails .confirmBtn {
+    background-color: rgb(56, 114, 64);
+}
+#todoDetails .confirmBtn:hover {
+    background-color: rgb(35, 95, 44);
+}
+#todoDetails .revertBtn {
+    background-color: rgb(99, 99, 99);
+}
+#todoDetails .revertBtn:hover {
+    background-color: rgb(75, 74, 74);
+}
+
+.required:after {
+    content:" *";
+    color: red;
+}
+#todoDetails button:hover {
+    background-color: var(--sidebar-bg-secondary);
+}
+
+#todoDetailsBackground {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.notScrollable {
+    overflow-y: hidden;
+}
+
+.swal-title, .swal-text, .swal-button {
+    font-family: var(--main-font);
+    color: black;
+}
+
+.swal-button {
+    font-weight: 800;
+}
+
+.swal-button--confirm {
+    color: white;
+}
+
+.swal-modal {
+    background-color: var(--white-color);
+    border-radius: 15px;
 }
 
 #sidebar {

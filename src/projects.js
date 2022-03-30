@@ -5,7 +5,9 @@ const projectsList = [];
 const Project = (name, isSelected) => {
     const todos = [];
     const assignTodo = todo => todos.push(todo);
-    return {name, todos, isSelected, assignTodo};
+    const replaceTodoAtIndex = (newTodo, indexToReplace) => todos.splice(indexToReplace, 0, newTodo);
+    const removeTodo = index => todos.splice(index, 1);
+    return {name, todos, isSelected, assignTodo, removeTodo, replaceTodoAtIndex};
 };
 
 const addProject = (name, todos, isSelected) => {
