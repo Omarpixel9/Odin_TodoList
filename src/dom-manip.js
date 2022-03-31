@@ -54,11 +54,16 @@ const updateTodosDisplay = () => {
         const todoDiv = buildElement('div', null, 'todo');
         const todoCheck = buildElement('input');
         todoCheck.type = 'checkbox';
+        todoCheck.checked = todo.checked;
         const todoTitle = buildElement('p');
         todoTitle.textContent = todo.title;
+        if (todo.checked)   todoTitle.classList.add('checkedTitle');
         todoDiv.appendChild(todoCheck);
         todoDiv.appendChild(todoTitle);
-        todoCheck.addEventListener('click', () => console.log('hi'));
+        todoCheck.addEventListener('click', () => {
+            todo.checked = !todo.checked;
+            updateTodosDisplay();
+        });
         todoTitle.addEventListener('click', () => loadTodoDetailDisplay(todo, index));
         todosDisplay.appendChild(todoDiv);
     }

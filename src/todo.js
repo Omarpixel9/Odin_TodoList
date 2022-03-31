@@ -2,7 +2,8 @@
 import { projectsList } from "./projects";
 
 const Todo = (title, description, dueDate, priority) => {
-    return {title, description, dueDate, priority};
+    const checked = false; // Initially unchecked
+    return {title, description, dueDate, priority, checked};
 };
 
 const addTodoToProject = (todo, projectName) => {
